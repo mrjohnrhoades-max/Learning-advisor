@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>CTE Learning Format Advisor</title>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel (to run JSX in browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 30px;
+      background: #f5f5f5;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+function LearningFormatAdvisor() {
+  const [topic, setTopic] = React.useState("Buy Now, Pay Later (BNPL)");
+  const [need, setNeed] = React.useState("understand");
+  const [complexity, setComplexity] = React.useState("complex");
+  const [timing, setTiming] = React.useState("before");
+
+  function getRecommendation() {
+    if (need === "understand") return "Structured Learning (Rise + optional Storyline)";
+    if (need === "perform") return "Job Aid + Short Video";
+    if (need === "decide") return "Scenario-Based Learning (Storyline)";
+    if (need === "execute") return "Simulation + Validation";
+  }
+
+  function getAssetCount() {
+    if (need === "understand") return "Core: 1 | Support: 2 | Assessment: 1 | Reinforcement: 1";
+    if (need === "perform") return "Core: 1 | Support: 1 | Assessment: 1";
+    if (need === "decide") return "Core: 1 | Support: 1 | Assessment: 1 | Reinforcement: 1";
+    if (need === "execute") return "Core: 1 | Validation: 1 | Support: 1";
+  }
+
+  function copyExecutive() {
+    navigator.clipboard.writeText(
+      `Topic: ${topic}\nFormat: ${getRecommendation()}\nAssets: ${getAssetCount()}`
+    );
+    alert("Executive brief ready to share");
+  }
+
+  return (
+    <div>
+      <h1>CTE Learning Format Advisor</h1>
+
+      <div className="card">
+        <div>Topic</div>
+        <input value={topic} onChange={e => setTopic(e.target.value)} />
+
+        <div style={{marginTop:10}}>Learning Need</div>
+        <select value={need} onChange={e => setNeed(e.target.value)}>
+          <option value="understand">Understand</option>
+          <option value="perform">Perform</option>
+          <option value="decide">Decide</option>
+          <option value="execute">Execute</option>
+        </select>
+
+        <div style={{marginTop:10}}>Timing</div>
+        <select value={timing} onChange={e => setTiming(e.target.value)}>
+          <option value="before">Before Work</option>
+          <option value="during">During Work</option>
+          <option value="after">After Learning</option>
+        </select>
+
+        <div style={{marginTop:10}}>Complexity</div>
+        <select value={complexity} onChange={e => setComplexity(e.target.value)}>
+          <option value="simple">Simple</option>
+          <option value="moderate">Moderate</option>
+          <option value="complex">Complex</option>
+        </select>
+      </div>
+
+      <div className="card">
+        <h3>Recommendation</h3>
+        <div>{getRecommendation()}</div>
+
+        <h3 style={{marginTop:20}}>Asset Count</h3>
+        <div>{getAssetCount()}</div>
+
+        <button onClick={copyExecutive}>
+          Copy Executive Summary
+        </button>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<LearningFormatAdvisor />);
+
+</script>
+</body>
+</html>
