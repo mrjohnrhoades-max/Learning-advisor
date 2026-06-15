@@ -97,6 +97,27 @@ function getRecommendation() {
     alert("Executive brief ready to share");
   }
 
+function copyDesignBrief() {
+  navigator.clipboard.writeText(
+    `CTE DESIGN BRIEF
+
+Topic: ${topic}
+
+Learning Need: ${need}
+Timing: ${timing}
+Complexity: ${complexity}
+
+Recommended Format:
+${getRecommendation()}
+
+Asset Estimate:
+${getAssetCount()}`
+  );
+
+  alert("Design brief ready to paste");
+}
+``
+  
   return (
     <div>
       <h1>CTE Learning Format Advisor</h1>
@@ -135,9 +156,13 @@ function getRecommendation() {
         <h3 style={{marginTop:20}}>Asset Count</h3>
         <div>{getAssetCount()}</div>
 
-        <button onClick={copyExecutive}>
-          Copy Executive Summary
-        </button>
+<button onClick={copyExecutive}>
+  For leadership
+</button>
+
+<button onClick={copyDesignBrief} style={{marginLeft:10}}>
+  For design team
+</button>
       </div>
     </div>
   );
