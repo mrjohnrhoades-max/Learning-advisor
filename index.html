@@ -145,20 +145,25 @@ function getNeedDefinition() {
     <div>
       <h1>CTE Learning Format Advisor</h1>
 
-      <div className="card">
-        <div>Topic</div>
-        <input value={topic} onChange={e => setTopic(e.target.value)} />
-          <option value="understand">Understand</option>
-          <option value="perform">Perform</option>
-          <option value="decide">Decide</option>
-          <option value="execute">Execute</option>
-        </select>
-        <div style={{marginTop:10}}>Learning Need</div>
-        <select value={need} onChange={e => setNeed(e.target.value)}>
-       <div style={{marginTop:6, fontSize:12, color:"#555"}}>
-  {getNeedDefinition()}
-</div>
-      
+<div className="card">
+  <div>Topic</div>
+  <input 
+    value={topic} 
+    onChange={e => setTopic(e.target.value)} 
+    placeholder="Enter learning topic"
+  />
+
+  <div style={{marginTop:10}}>Learning Need</div>
+  <select value={need} onChange={e => setNeed(e.target.value)}>
+    <option value="understand">Understand</option>
+    <option value="perform">Perform</option>
+    <option value="decide">Decide</option>
+    <option value="execute">Execute</option>
+  </select>
+
+  <div style={{marginTop:6, fontSize:12, color:"#555"}}>
+    {getNeedDefinition()}
+  </div>      
         <div style={{marginTop:10}}>Timing</div>
         <select value={timing} onChange={e => setTiming(e.target.value)}>
           <option value="before">Before Work</option>
