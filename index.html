@@ -122,6 +122,24 @@ function getConfidence() {
   if (need === "understand" && timing === "during") return "⚠ Needs adjustment";
   return "✅ Best fit";
 }
+
+function getNeedDefinition() {
+  if (need === "understand") {
+    return "Learners need to build conceptual understanding — definitions, frameworks, and how things work.";
+  }
+
+  if (need === "perform") {
+    return "Learners need to complete a task or workflow correctly and efficiently.";
+  }
+
+  if (need === "decide") {
+    return "Learners need to evaluate options and apply judgment in real scenarios.";
+  }
+
+  if (need === "execute") {
+    return "Learners must perform a structured process accurately with little room for error.";
+  }
+}
   
   return (
     <div>
