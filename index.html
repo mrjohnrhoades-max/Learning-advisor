@@ -154,28 +154,29 @@ function getConfidence() {
         </select>
       </div>
 
-      <div className="card">
-<h3>Recommendation</h3>
-<div>{getRecommendation()}</div>
+<div className="card">
+  <h3>Recommendation</h3>
+  <div>{getRecommendation()}</div>
 
-<div style={{marginTop:10, fontWeight:"bold"}}>
-  {getConfidence()}
+  <div style={{marginTop:10, fontWeight:"bold"}}>
+    {getConfidence()}
+  </div>
+
+  <h3 style={{marginTop:20}}>Asset Count</h3>
+  <div>{getAssetCount()}</div>
+
+  <div>
+    <button onClick={copyExecutive}>
+      For leadership
+    </button>
+
+    <button onClick={copyDesignBrief} style={{marginLeft:10}}>
+      For design team
+    </button>
+  </div>
 </div>
 
-<h3 style={{marginTop:20}}>Asset Count</h3>
-<div>{getAssetCount()}</div>
-
-
-<div>
-  <button onClick={copyExecutive}>
-    For leadership
-  </button>
-
-  <button onClick={copyDesignBrief} style={{marginLeft:10}}>
-    For design team
-  </button>
-</div>
-    </div>
+</div>   {/* ✅ THIS closes the main return wrapper */}
   );
 }
 
