@@ -117,6 +117,12 @@ ${getAssetCount()}`
   alert("Design brief ready to paste");
 }
 ``
+
+function getConfidence() {
+  if (need === "execute" && timing === "after") return "❌ Misaligned";
+  if (need === "understand" && timing === "during") return "⚠ Needs adjustment";
+  return "✅ Best fit";
+}
   
   return (
     <div>
@@ -150,11 +156,16 @@ ${getAssetCount()}`
       </div>
 
       <div className="card">
-        <h3>Recommendation</h3>
-        <div>{getRecommendation()}</div>
+<h3>Recommendation</h3>
+<div>{getRecommendation()}</div>
 
-        <h3 style={{marginTop:20}}>Asset Count</h3>
-        <div>{getAssetCount()}</div>
+<div style={{marginTop:10, fontWeight:"bold"}}>
+  {getConfidence()}
+</div>
+
+<h3 style={{marginTop:20}}>Asset Count</h3>
+<div>{getAssetCount()}</div>
+
 
 <div>
   <button onClick={copyExecutive}>
