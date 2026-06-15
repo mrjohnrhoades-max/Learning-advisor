@@ -44,19 +44,52 @@ function LearningFormatAdvisor() {
   const [complexity, setComplexity] = React.useState("complex");
   const [timing, setTiming] = React.useState("before");
 
-  function getRecommendation() {
-    if (need === "understand") return "Structured Learning (Rise + optional Storyline)";
-    if (need === "perform") return "Job Aid + Short Video";
-    if (need === "decide") return "Scenario-Based Learning (Storyline)";
-    if (need === "execute") return "Simulation + Validation";
+function getRecommendation() {
+  if (need === "understand") {
+    if (timing === "during") return "Performance support (job aid or quick reference)";
+    if (complexity === "complex") return "Structured learning (Rise + Storyline scenario)";
+    return "Structured learning (Rise course)";
+  }
+
+  if (need === "perform") {
+    if (timing === "before" && complexity === "complex")
+      return "Blended: short course + job aid + video";
+    return "Job aid + short video";
+  }
+
+  if (need === "decide") {
+    if (complexity === "complex")
+      return "Scenario-based learning (Storyline with branching)";
+    return "Light scenario or case-based learning";
+  }
+
+  if (need === "execute") {
+    if (timing === "after")
+      return "⚠ Risk: execution skills need practice before or during work";
+    return "Simulation + validation + job aid";
+  }
+}
   }
 
   function getAssetCount() {
-    if (need === "understand") return "Core: 1 | Support: 2 | Assessment: 1 | Reinforcement: 1";
-    if (need === "perform") return "Core: 1 | Support: 1 | Assessment: 1";
-    if (need === "decide") return "Core: 1 | Support: 1 | Assessment: 1 | Reinforcement: 1";
-    if (need === "execute") return "Core: 1 | Validation: 1 | Support: 1";
+  if (need === "understand") {
+    return complexity === "complex"
+      ? "Core: 1 | Support: 2 | Assessment: 1 | Reinforcement: 1 (Total: 5)"
+      : "Core: 1 | Support: 1 | Assessment: 1 (Total: 3)";
   }
+
+  if (need === "perform") {
+    return "Core: 1 | Support: 1 | Assessment: 1 (Total: 3)";
+  }
+
+  if (need === "decide") {
+    return "Core: 1 | Support: 1 | Assessment: 1 | Reinforcement: 1 (Total: 4)";
+  }
+
+  if (need === "execute") {
+    return "Core: 1 | Validation: 1 | Support: 1 (Total: 3)";
+  }
+}
 
   function copyExecutive() {
     navigator.clipboard.writeText(
