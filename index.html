@@ -140,6 +140,18 @@ function getNeedDefinition() {
     return "Learners must perform a structured process accurately with little room for error.";
   }
 }
+
+  function getInstructionalPattern() {
+  if (need === "execute" && complexity === "complex") {
+    return "Show It → Teach It → Try It (video demonstration → guided simulation → independent practice)";
+  }
+
+  if (need === "execute") {
+    return "Guided practice with validation (Teach It → Try It)";
+  }
+
+  return "";
+}
   
   return (
     <div>
@@ -180,8 +192,16 @@ function getNeedDefinition() {
       </div>
 
 <div className="card">
-  <h3>Recommendation</h3>
-  <div>{getRecommendation()}</div>
+<h3>Recommendation</h3>
+<div>{getRecommendation()}</div>
+
+{getInstructionalPattern() && (
+  <div style={{marginTop:10, fontSize:13, color:"#444"}}>
+    <strong>Instructional Pattern:</strong><br/>
+    {getInstructionalPattern()}
+  </div>
+)}
+
 
   <div style={{marginTop:10, fontWeight:"bold"}}>
     {getConfidence()}
