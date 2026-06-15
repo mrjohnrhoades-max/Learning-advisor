@@ -151,6 +151,9 @@ function getNeedDefinition() {
 
         <div style={{marginTop:10}}>Learning Need</div>
         <select value={need} onChange={e => setNeed(e.target.value)}>
+       <div style={{marginTop:6, fontSize:12, color:"#555"}}>
+  {getNeedDefinition()}
+</div>
           <option value="understand">Understand</option>
           <option value="perform">Perform</option>
           <option value="decide">Decide</option>
