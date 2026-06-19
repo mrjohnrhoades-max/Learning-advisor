@@ -98,6 +98,11 @@ function getRecommendation() {
   }
 
 function copyDesignBrief() {
+  const packageText = getRecommendedPackage()
+    .map(item => `${item.role}: ${item.asset} [${item.status}]
+${item.definition}`)
+    .join("\n\n");
+
   navigator.clipboard.writeText(
     `CTE DESIGN BRIEF
 
@@ -110,8 +115,14 @@ Complexity: ${complexity}
 Recommended Format:
 ${getRecommendation()}
 
+Instructional Pattern:
+${getInstructionalPattern()}
+
 Asset Estimate:
-${getAssetCount()}`
+${getAssetCount()}
+
+Recommended Package:
+${packageText}`
   );
 
   alert("Design brief ready to paste");
@@ -246,6 +257,197 @@ function getRecommendedPackage() {
   return null;
 }
 
+function getRecommendedPackage() {
+  if (need === "execute" && complexity === "complex") {
+    return [
+      {
+        role: "Core",
+        asset: "Simulation",
+        status: "Required",
+        definition: "The primary asset that enables the learner to practice and build the target capability. For complex execution tasks, this should include guided practice and independent practice."
+      },
+      {
+        role: "Support",
+        asset: "Video demonstration",
+        status: "Required",
+        definition: "A supporting asset that helps learners understand what they are about to do before they attempt it. This is the Show It layer."
+      },
+      {
+        role: "Assessment",
+        asset: "Independent scenario",
+        status: "Required",
+        definition: "An asset used to confirm the learner can perform the task independently, without step-by-step guidance. This is the Try It validation layer."
+      },
+      {
+        role: "Performance Support",
+        asset: "Job aid / in-tool support",
+        status: "Recommended",
+        definition: "A just-in-time support asset that helps users complete the task accurately while working in the real system."
+      },
+      {
+        role: "Reinforcement",
+        asset: "Refresher or quick reference",
+        status: "Optional",
+        definition: "A follow-up asset that helps sustain retention and supports repeated application over time."
+      }
+    ];
+  }
+
+  if (need === "execute") {
+    return [
+      {
+        role: "Core",
+        asset: "Guided practice",
+        status: "Required",
+        definition: "The primary asset that helps the learner perform the task with support before attempting it independently."
+      },
+      {
+        role: "Assessment",
+        asset: "Short validation activity",
+        status: "Required",
+        definition: "An activity that confirms the learner can complete the task correctly."
+      },
+      {
+        role: "Performance Support",
+        asset: "Job aid",
+        status: "Recommended",
+        definition: "A support asset that helps the learner complete the task accurately during real work."
+      },
+      {
+        role: "Reinforcement",
+        asset: "Quick reference",
+        status: "Optional",
+        definition: "A lightweight asset used to refresh memory after the initial learning experience."
+      }
+    ];
+  }
+
+  if (need === "understand") {
+    return [
+      {
+        role: "Core",
+        asset: "Structured course",
+        status: "Required",
+        definition: "The primary asset that builds conceptual understanding through a sequenced learning experience."
+      },
+      {
+        role: "Support",
+        asset: "Visual explanation or example",
+        status: "Recommended",
+        definition: "A supporting asset that helps make concepts easier to understand through examples, visuals, or demonstrations."
+      },
+      {
+        role: "Assessment",
+        asset: "Knowledge check",
+        status: "Required",
+        definition: "An asset that confirms the learner understands the key concepts."
+      },
+      {
+        role: "Reinforcement",
+        asset: "Summary material",
+        status: "Optional",
+        definition: "A follow-up asset that helps learners remember and revisit the core concept after the course."
+      }
+    ];
+  }
+
+  if (need === "perform") {
+    return [
+      {
+        role: "Core",
+        asset: "Job aid",
+        status: "Required",
+        definition: "The primary asset that enables the learner to complete a task efficiently at the point of need."
+      },
+      {
+        role: "Support",
+        asset: "Short video",
+        status: "Recommended",
+        definition: "A supporting asset that demonstrates the task or shows what successful completion looks like."
+      },
+      {
+        role: "Assessment",
+        asset: "Task-based check",
+        status: "Recommended",
+        definition: "An activity that confirms the learner can complete the task correctly."
+      },
+      {
+        role: "Reinforcement",
+        asset: "Quick access resource",
+        status: "Optional",
+        definition: "A lightweight resource that helps the learner repeat or refresh the task later."
+      }
+    ];
+  }
+
+  if (need === "decide") {
+    return [
+      {
+        role: "Core",
+        asset: "Scenario-based learning",
+        status: "Required",
+        definition: "The primary asset that helps learners practice judgment by evaluating realistic situations and making decisions."
+      },
+      {
+        role: "Support",
+        asset: "Case examples",
+        status: "Recommended",
+        definition: "Supporting examples that help learners recognize patterns, trade-offs, and decision factors."
+      },
+      {
+        role: "Assessment",
+        asset: "Decision exercise",
+        status: "Required",
+        definition: "An activity that confirms the learner can apply judgment in a realistic situation."
+      },
+      {
+        role: "Reinforcement",
+        asset: "Guidelines / framework",
+        status: "Recommended",
+        definition: "A reference asset that helps learners apply the decision logic later in real work."
+      }
+    ];
+  }
+
+  return [];
+}
+  
+function getStatusStyle(status) {
+  if (status === "Required") {
+    return {
+      background: "#e6f4ea",
+      color: "#137333",
+      padding: "2px 6px",
+      borderRadius: 6,
+      fontSize: 11,
+      fontWeight: "bold",
+      marginLeft: 8
+    };
+  }
+
+  if (status === "Recommended") {
+    return {
+      background: "#fff4e5",
+      color: "#b06000",
+      padding: "2px 6px",
+      borderRadius: 6,
+      fontSize: 11,
+      fontWeight: "bold",
+      marginLeft: 8
+    };
+  }
+
+  return {
+    background: "#eef2f7",
+    color: "#475569",
+    padding: "2px 6px",
+    borderRadius: 6,
+    fontSize: 11,
+    fontWeight: "bold",
+    marginLeft: 8
+  };
+}
+
   
   return (
     <div>
@@ -301,6 +503,40 @@ function getRecommendedPackage() {
 </div>
 
 
+<div style={{marginTop:15}}>
+  <strong>Recommended Package:</strong>
+
+  <div style={{marginTop:8}}>
+    {getRecommendedPackage().map((item, index) => (
+      <div 
+        key={index} 
+        style={{
+          marginTop:10,
+          padding:10,
+          border:"1px solid #ddd",
+          borderRadius:8,
+          background:"#fafafa"
+        }}
+      >
+        <div>
+          <strong>{item.role}:</strong> {item.asset}
+          <span style={getStatusStyle(item.status)}>
+            {item.status}
+          </span>
+        </div>
+
+        <div style={{marginTop:5, fontSize:12, color:"#555"}}>
+          {item.definition}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
+
+  
   <div style={{marginTop:10, fontWeight:"bold"}}>
     {getConfidence()}
   </div>
