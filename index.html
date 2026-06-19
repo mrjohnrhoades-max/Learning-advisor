@@ -473,6 +473,27 @@ function getComplexityHint() {
 function getLearningNeedHint() {
   return "Tip: Learn about a concept → Understand | Do a task → Perform | Make a judgment → Decide | Execute a process with precision → Execute";
 }  
+
+
+function getTimingDefinition() {
+  if (timing === "before") {
+    return "Learning happens before work. Focus is on building knowledge or capability so the learner is prepared to perform.";
+  }
+
+  if (timing === "during") {
+    return "Support happens during work. Focus is on enabling fast, accurate execution with minimal disruption.";
+  }
+
+  if (timing === "after") {
+    return "Learning or reinforcement happens after work. Focus is on validating, improving, or reinforcing performance over time.";
+  }
+
+  return "";
+}
+function getTimingHint() {
+  return "Tip: Build capability before work, support execution during work, and reinforce or validate after work.";
+}
+
   
   return (
     <div>
@@ -506,7 +527,14 @@ function getLearningNeedHint() {
           <option value="during">During Work</option>
           <option value="after">After Learning</option>
         </select>
+<div style={{marginTop:6, fontSize:12, color:"#555"}}>
+  {getTimingDefinition()}
+</div>
 
+<div style={{marginTop:4, fontSize:11, color:"#777", fontStyle:"italic"}}>
+  {getTimingHint()}
+</div>
+  
         <div style={{marginTop:10}}>Complexity</div>
         <select value={complexity} onChange={e => setComplexity(e.target.value)}>
           <option value="simple">Simple</option>
