@@ -153,6 +153,99 @@ function getNeedDefinition() {
 
   return "";
 }
+
+{getRecommendedPackage() && (
+  <div style={{marginTop:15}}>
+    <strong>Recommended Package:</strong>
+
+    <div style={{fontSize:13, marginTop:6}}>
+      <div><b>Core:</b> {getRecommendedPackage().core}</div>
+      <div><b>Support:</b> {getRecommendedPackage().support}</div>
+      <div><b>Validation:</b> {getRecommendedPackage().validation}</div>
+      <div><b>Reinforcement:</b> {getRecommendedPackage().reinforcement}</div>
+    </div>
+  </div>
+)}
+
+
+  
+function getRecommendationDefinition() {
+  const rec = getRecommendation();
+
+  if (!rec) return "";
+
+  if (rec.toLowerCase().includes("structured learning")) {
+    return "A structured learning experience that builds knowledge and skills in a logical sequence, often including instruction, practice, and assessment.";
+  }
+
+  if (rec.toLowerCase().includes("simulation")) {
+    return "An interactive environment that replicates real-world tasks, allowing learners to practice and apply skills in a safe, risk-free setting.";
+  }
+
+  if (rec.toLowerCase().includes("job aid")) {
+    return "A practical tool that provides step-by-step guidance or reference information to support task execution at the moment of need.";
+  }
+
+  if (rec.toLowerCase().includes("scenario")) {
+    return "A case-based learning experience that allows learners to practice decision-making in realistic situations.";
+  }
+
+  if (rec.toLowerCase().includes("video") || rec.toLowerCase().includes("demonstration")) {
+    return "A visual walkthrough that shows how a process works or how a task is performed before learners attempt it themselves.";
+  }
+
+  return "";
+}
+
+function getRecommendedPackage() {
+  if (need === "execute" && complexity === "complex") {
+    return {
+      core: "Simulation (guided + independent practice)",
+      support: "Video demonstration (Show It)",
+      validation: "Independent scenario (Try It)",
+      reinforcement: "Job aids / in-tool support"
+    };
+  }
+
+  if (need === "execute") {
+    return {
+      core: "Guided practice",
+      support: "Quick reference",
+      validation: "Short validation activity",
+      reinforcement: "Job aid"
+    };
+  }
+
+  if (need === "understand") {
+    return {
+      core: "Structured course",
+      support: "Visual explanations",
+      validation: "Knowledge check",
+      reinforcement: "Summary materials"
+    };
+  }
+
+  if (need === "perform") {
+    return {
+      core: "Job aid",
+      support: "Short video",
+      validation: "Task-based check",
+      reinforcement: "Quick access resources"
+    };
+  }
+
+  if (need === "decide") {
+    return {
+      core: "Scenario-based learning",
+      support: "Case examples",
+      validation: "Decision exercise",
+      reinforcement: "Guidelines / frameworks"
+    };
+  }
+
+  return null;
+}
+
   
   return (
     <div>
@@ -195,6 +288,12 @@ function getNeedDefinition() {
 <div className="card">
 <h3>Recommendation</h3>
 <div>{getRecommendation()}</div>
+
+{getRecommendationDefinition() && (
+  <div style={{marginTop:6, fontSize:12, color:"#555"}}>
+    {getRecommendationDefinition()}
+  </div>
+)}
 
 <div style={{marginTop:10, fontSize:13, color:"#444"}}>
   <strong>Instructional Pattern:</strong><br/>
