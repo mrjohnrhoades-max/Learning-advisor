@@ -448,6 +448,23 @@ function getStatusStyle(status) {
   };
 }
 
+
+function getComplexityDefinition() {
+  if (complexity === "simple") {
+    return "Low difficulty. Tasks are straightforward, repeatable, and involve few steps or decisions. Learners can quickly understand and apply the skill.";
+  }
+
+  if (complexity === "moderate") {
+    return "Moderate difficulty. Tasks involve multiple steps, some variation, or light decision-making. Learners need practice but not full simulation environments.";
+  }
+
+  if (complexity === "complex") {
+    return "High difficulty. Tasks require multi-step execution, judgment, or precision. Errors carry risk, and learners need structured practice (often simulation) to build capability.";
+  }
+
+  return "";
+}
+
   
   return (
     <div>
@@ -485,8 +502,15 @@ function getStatusStyle(status) {
           <option value="moderate">Moderate</option>
           <option value="complex">Complex</option>
         </select>
-      </div>
+<div style={{marginTop:6, fontSize:12, color:"#555"}}>
+  {getComplexityDefinition()}
+</div>
 
+  
+</div>
+
+
+      
 <div className="card">
 <h3>Recommendation</h3>
 <div>{getRecommendation()}</div>
