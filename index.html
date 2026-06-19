@@ -99,6 +99,8 @@ function getRecommendation() {
   }
 
 function copyDesignBrief() {
+  const delivery = getRecommendedDeliveryApproach();
+
   const packageText = getRecommendedPackage()
     .map(item => `${item.role}: ${item.asset} [${item.status}]
 ${item.definition}`)
@@ -109,15 +111,17 @@ ${item.definition}`)
 
 Topic: ${topic}
 
+Topic Type: ${topicType}
 Learning Need: ${need}
 Timing: ${timing}
 Complexity: ${complexity}
 
 Recommended Format:
 ${getRecommendation()}
+
 Recommended Delivery Approach:
-${getRecommendedDeliveryApproach().approach}
-${getRecommendedDelivery
+${delivery.approach}
+${delivery.description}
 
 Instructional Pattern:
 ${getInstructionalPattern()}
@@ -131,7 +135,6 @@ ${packageText}`
 
   alert("Design brief ready to paste");
 }
-
 function getConfidence() {
   if (need === "execute" && timing === "after") return "❌ Misaligned";
   if (need === "understand" && timing === "during") return "⚠ Needs adjustment";
@@ -169,17 +172,7 @@ function getNeedDefinition() {
   return "";
 }
 
-{getRecommendedPackage() && (
-  <div style={{marginTop:15}}>
-    <strong>Recommended Package:</strong>
 
-    <div style={{fontSize:13, marginTop:6}}>
-      <div><b>Core:</b> {getRecommendedPackage().core}</div>
-      <div><b>Support:</b> {getRecommendedPackage().support}</div>
-      <div><b>Validation:</b> {getRecommendedPackage().validation}</div>
-      <div><b>Reinforcement:</b> {getRecommendedPackage().reinforcement}</div>
-    </div>
-  </div>
 )}
 
 
@@ -212,54 +205,7 @@ function getRecommendationDefinition() {
   return "";
 }
 
-function getRecommendedPackage() {
-  if (need === "execute" && complexity === "complex") {
-    return {
-      core: "Simulation (guided + independent practice)",
-      support: "Video demonstration (Show It)",
-      validation: "Independent scenario (Try It)",
-      reinforcement: "Job aids / in-tool support"
-    };
-  }
 
-  if (need === "execute") {
-    return {
-      core: "Guided practice",
-      support: "Quick reference",
-      validation: "Short validation activity",
-      reinforcement: "Job aid"
-    };
-  }
-
-  if (need === "understand") {
-    return {
-      core: "Structured course",
-      support: "Visual explanations",
-      validation: "Knowledge check",
-      reinforcement: "Summary materials"
-    };
-  }
-
-  if (need === "perform") {
-    return {
-      core: "Job aid",
-      support: "Short video",
-      validation: "Task-based check",
-      reinforcement: "Quick access resources"
-    };
-  }
-
-  if (need === "decide") {
-    return {
-      core: "Scenario-based learning",
-      support: "Case examples",
-      validation: "Decision exercise",
-      reinforcement: "Guidelines / frameworks"
-    };
-  }
-
-  return null;
-}
 
 function getRecommendedPackage() {
   if (need === "execute" && complexity === "complex") {
@@ -472,7 +418,6 @@ function getComplexityDefinition() {
 function getComplexityHint() {
   return "Tip: Simple = one concept | Moderate = multiple concepts or steps | Complex = requires application, judgment, or precision where errors matter";
 }
-``
 
 function getLearningNeedHint() {
   return "Tip: Learn about a concept → Understand | Do a task → Perform | Make a judgment → Decide | Execute a process with precision → Execute";
@@ -667,7 +612,6 @@ function getRecommendedDeliveryApproach() {
     example: "General learning need."
   };
 }
-``
   
   
   return (
@@ -764,17 +708,6 @@ function getRecommendedDeliveryApproach() {
   borderRadius:8,
   background:"#f9fafb"
 }}>
-<div style={{marginTop:10}}>
-  <strong>Delivery Approach (Design Options):</strong>
-
-  <ul style={{marginTop:6, fontSize:13}}>
-    {getDeliveryApproach().map((item, index) => (
-      <li key={index}>{item}</li>
-    ))}
-  </ul>
-</div>
-``
-  
   <strong>Recommended Delivery Approach:</strong>
 
   <div style={{marginTop:6, fontSize:14}}>
