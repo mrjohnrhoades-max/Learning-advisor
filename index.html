@@ -610,6 +610,116 @@ function getRecommendedDeliveryApproach() {
     example: "General learning need."
   };
 }
+
+function getAlternativeDeliveryApproaches() {
+  if (topicType === "concept") {
+    if (need === "understand") {
+      return [
+        {
+          approach: "AI avatar-led course",
+          whenToUse: "Use when the content is explanation-heavy, needs to be produced quickly, or benefits from a consistent presenter voice."
+        },
+        {
+          approach: "Traditional interactive course",
+          whenToUse: "Use when learners need more interaction, knowledge checks, reflection prompts, or guided engagement."
+        },
+        {
+          approach: "Microlearning series",
+          whenToUse: "Use when the topic can be broken into short, focused modules or released over time."
+        }
+      ];
+    }
+
+    if (need === "decide") {
+      return [
+        {
+          approach: "Case-based discussion course",
+          whenToUse: "Use when learners need to compare examples, discuss implications, or evaluate options."
+        },
+        {
+          approach: "Interactive scenario course",
+          whenToUse: "Use when learners need to practice trade-off thinking in realistic situations."
+        }
+      ];
+    }
+  }
+
+  if (topicType === "system") {
+    if (need === "execute") {
+      return [
+        {
+          approach: "Short video + job aid",
+          whenToUse: "Use when the workflow is straightforward and learners mainly need a quick reminder."
+        },
+        {
+          approach: "Guided click-through simulation",
+          whenToUse: "Use when learners need to practice the workflow safely before doing it in the live system."
+        },
+        {
+          approach: "In-tool support / deep links",
+          whenToUse: "Use when learners may get stuck during real work and need immediate help at the point of need."
+        }
+      ];
+    }
+
+    if (need === "perform") {
+      return [
+        {
+          approach: "Checklist or quick reference",
+          whenToUse: "Use when learners need fast task support without completing a full course."
+        },
+        {
+          approach: "Annotated screenshot guide",
+          whenToUse: "Use when visual cues help users locate screens, buttons, or fields."
+        }
+      ];
+    }
+  }
+
+  if (topicType === "decision") {
+    if (need === "decide") {
+      return [
+        {
+          approach: "Branching scenario",
+          whenToUse: "Use when choices lead to different consequences and learners need to practice judgment."
+        },
+        {
+          approach: "Decision framework guide",
+          whenToUse: "Use when learners need a reusable model or checklist to apply outside the course."
+        },
+        {
+          approach: "Facilitated case debrief",
+          whenToUse: "Use when alignment, discussion, or calibration across learners is important."
+        }
+      ];
+    }
+
+    if (need === "understand") {
+      return [
+        {
+          approach: "Framework-led explainer",
+          whenToUse: "Use when learners first need to understand the logic behind a decision before practicing it."
+        },
+        {
+          approach: "Example-based course",
+          whenToUse: "Use when learners benefit from seeing multiple examples before applying the framework."
+        }
+      ];
+    }
+  }
+
+  return [
+    {
+      approach: "Traditional interactive course",
+      whenToUse: "Use when the topic needs structured explanation, examples, and learner engagement."
+    },
+    {
+      approach: "Video-led course",
+      whenToUse: "Use when the topic benefits from narration, visuals, or a more polished storytelling approach."
+    }
+  ];
+}
+
   
   
   return (
@@ -724,6 +834,40 @@ function getRecommendedDeliveryApproach() {
     <strong>Example:</strong> {getRecommendedDeliveryApproach().example}
   </div>
 </div>
+
+<div style={{
+  marginTop:15,
+  padding:12,
+  border:"1px solid #ddd",
+  borderRadius:8,
+  background:"#fff"
+}}>
+  <strong>Alternative Delivery Approaches:</strong>
+
+  <div style={{marginTop:8}}>
+    {getAlternativeDeliveryApproaches().map((item, index) => (
+      <div 
+        key={index}
+        style={{
+          marginTop:10,
+          padding:10,
+          border:"1px solid #eee",
+          borderRadius:8,
+          background:"#fafafa"
+        }}
+      >
+        <div style={{fontSize:13}}>
+          <strong>{item.approach}</strong>
+        </div>
+
+        <div style={{marginTop:4, fontSize:12, color:"#555"}}>
+          {item.whenToUse}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
   
 <div style={{marginTop:10, fontSize:13, color:"#444"}}>
   <strong>Instructional Pattern:</strong><br/>
