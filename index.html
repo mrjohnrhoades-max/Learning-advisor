@@ -43,7 +43,8 @@ function LearningFormatAdvisor() {
   const [need, setNeed] = React.useState("understand");
   const [complexity, setComplexity] = React.useState("complex");
   const [timing, setTiming] = React.useState("before");
-
+  const [topicType, setTopicType] = React.useState("concept");
+  
 function getRecommendation() {
   if (need === "understand") {
     if (timing === "during") return "Performance support (job aid or quick reference)";
@@ -114,6 +115,9 @@ Complexity: ${complexity}
 
 Recommended Format:
 ${getRecommendation()}
+Recommended Delivery Approach:
+${getRecommendedDeliveryApproach().approach}
+${getRecommendedDelivery
 
 Instructional Pattern:
 ${getInstructionalPattern()}
@@ -498,6 +502,140 @@ function getWorkDefinition() {
   return "Work refers to performing real tasks or activities in a live business context (e.g., using a system, analyzing data, making decisions).";
 }
 
+function getTopicTypeDefinition() {
+  if (topicType === "concept") {
+    return "Concept topics explain ideas, trends, frameworks, products, or market context. Examples: stablecoin, AI, payments of the future.";
+  }
+
+  if (topicType === "system") {
+    return "System topics teach users how to complete tasks or workflows inside software or tools. Examples: setting up a Test & Learn analysis or using a reporting dashboard.";
+  }
+
+  if (topicType === "decision") {
+    return "Decision topics help learners evaluate options, apply judgment, or make recommendations. Examples: choosing a control strategy, interpreting outputs, or advising a client.";
+  }
+
+  return "";
+}  
+
+function getTopicTypeHint() {
+  return "Tip: Concept = explain an idea | System = use a tool or workflow | Decision = evaluate options or make a recommendation";
+}
+
+function getRecommendedDeliveryApproach() {
+  if (topicType === "concept") {
+    if (need === "understand") {
+      if (complexity === "simple") {
+        return {
+          approach: "Short explainer course",
+          description: "A concise, visually clear course that introduces the concept, key terminology, and why it matters.",
+          bestFor: "Simple concept introductions or awareness-building topics.",
+          example: "A short module explaining what stablecoins are."
+        };
+      }
+
+      if (complexity === "moderate") {
+        return {
+          approach: "Video-led structured course",
+          description: "A structured learning experience supported by b-roll, voiceover, examples, and light interaction to help learners connect ideas.",
+          bestFor: "Industry trends, product concepts, market context, and emerging topics with multiple connected ideas.",
+          example: "A course on AI in payments or payments of the future."
+        };
+      }
+
+      return {
+        approach: "Interactive thought-leadership course",
+        description: "A richer structured course that combines explanation, examples, reflection prompts, scenario questions, and applied interpretation.",
+        bestFor: "Complex concept topics where learners must interpret implications, compare models, or apply a framework.",
+        example: "A course on how stablecoins may affect cross-border payments strategy."
+      };
+    }
+
+    if (need === "decide") {
+      return {
+        approach: "Scenario-led concept application",
+        description: "A scenario-based experience where learners apply concepts to realistic business situations and evaluate trade-offs.",
+        bestFor: "Concepts that require interpretation or recommendation-making.",
+        example: "Evaluating which payment innovation matters most for a client segment."
+      };
+    }
+  }
+
+  if (topicType === "system") {
+    if (need === "execute") {
+      if (complexity === "complex") {
+        return {
+          approach: "Show It / Teach It / Try It software course",
+          description: "A course that starts with a video demonstration, moves into guided simulation, and ends with independent practice.",
+          bestFor: "Complex workflows where accuracy, sequence, and practice matter.",
+          example: "Setting up a Test & Learn analysis."
+        };
+      }
+
+      return {
+        approach: "Guided software walkthrough",
+        description: "A lightweight guided walkthrough with practice and validation for completing a system task.",
+        bestFor: "Straightforward system tasks where learners need to follow steps correctly.",
+        example: "Running a standard report or completing a simple setup process."
+      };
+    }
+
+    if (need === "perform") {
+      return {
+        approach: "Job-aid-led performance support",
+        description: "A practical support experience built around checklists, quick references, screenshots, or deep links to help users complete tasks during work.",
+        bestFor: "Tasks learners need to complete in the flow of work without memorizing every step.",
+        example: "Quick reference for where to find a specific tool or report."
+      };
+    }
+
+    if (need === "understand") {
+      return {
+        approach: "System overview course",
+        description: "A structured overview that explains what the system does, how key components fit together, and when users should use it.",
+        bestFor: "System orientation before users begin hands-on practice.",
+        example: "Overview of the Test & Learn platform and analysis workflow."
+      };
+    }
+  }
+
+  if (topicType === "decision") {
+    if (need === "decide") {
+      if (complexity === "complex") {
+        return {
+          approach: "Branching scenario course",
+          description: "A decision-based course where learners evaluate realistic situations, make choices, and see consequences or feedback.",
+          bestFor: "Advisory judgment, recommendation-making, and trade-off evaluation.",
+          example: "Choosing the right control strategy for a Test & Learn analysis."
+        };
+      }
+
+      return {
+        approach: "Case-based learning",
+        description: "A lighter scenario or case experience that helps learners apply judgment to realistic examples.",
+        bestFor: "Moderate decision-making where learners need practice but not full branching.",
+        example: "Selecting between two analysis approaches based on client needs."
+      };
+    }
+
+    if (need === "understand") {
+      return {
+        approach: "Framework-led course",
+        description: "A structured course that teaches the decision framework before learners apply it.",
+        bestFor: "Topics where learners first need to understand the criteria behind good decisions.",
+        example: "Understanding how to interpret Test & Learn outputs."
+      };
+    }
+  }
+
+  return {
+    approach: "Standard structured learning",
+    description: "A general structured learning experience aligned to the selected learning need, timing, and complexity.",
+    bestFor: "Topics that do not clearly fit concept, system, or decision patterns.",
+    example: "General learning need."
+  };
+}
+``
   
   
   return (
@@ -512,6 +650,22 @@ function getWorkDefinition() {
     placeholder="Enter learning topic"
   />
 
+<div style={{marginTop:10}}>Topic Type</div>
+
+<select value={topicType} onChange={e => setTopicType(e.target.value)}>
+  <option value="concept">Concept / Trend</option>
+  <option value="system">System / Software Workflow</option>
+  <option value="decision">Decision / Advisory Judgment</option>
+</select>
+
+<div style={{marginTop:6, fontSize:12, color:"#555"}}>
+  {getTopicTypeDefinition()}
+</div>
+
+<div style={{marginTop:4, fontSize:11, color:"#777", fontStyle:"italic"}}>
+  {getTopicTypeHint()}
+</div>
+  
   <div style={{marginTop:10}}>Learning Need</div>
   <select value={need} onChange={e => setNeed(e.target.value)}>
     <option value="understand">Understand</option>
@@ -571,6 +725,32 @@ function getWorkDefinition() {
   </div>
 )}
 
+<div style={{
+  marginTop:15,
+  padding:12,
+  border:"1px solid #ddd",
+  borderRadius:8,
+  background:"#f9fafb"
+}}>
+  <strong>Recommended Delivery Approach:</strong>
+
+  <div style={{marginTop:6, fontSize:14}}>
+    {getRecommendedDeliveryApproach().approach}
+  </div>
+
+  <div style={{marginTop:6, fontSize:12, color:"#555"}}>
+    {getRecommendedDeliveryApproach().description}
+  </div>
+
+  <div style={{marginTop:8, fontSize:12, color:"#555"}}>
+    <strong>Best for:</strong> {getRecommendedDeliveryApproach().bestFor}
+  </div>
+
+  <div style={{marginTop:4, fontSize:12, color:"#555"}}>
+    <strong>Example:</strong> {getRecommendedDeliveryApproach().example}
+  </div>
+</div>
+  
 <div style={{marginTop:10, fontSize:13, color:"#444"}}>
   <strong>Instructional Pattern:</strong><br/>
   {getInstructionalPattern()}
