@@ -469,7 +469,9 @@ function getComplexityHint() {
   return "Tip: If learners must connect multiple concepts → Moderate. If errors would create risk or require precision → Complex.";
 }
 
-  
+function getLearningNeedHint() {
+  return "Tip: Learn about a concept → Understand | Do a task → Perform | Make a judgment → Decide | Execute a process with precision → Execute";
+}  
   
   return (
     <div>
@@ -493,7 +495,10 @@ function getComplexityHint() {
 
   <div style={{marginTop:6, fontSize:12, color:"#555"}}>
     {getNeedDefinition()}
-  </div>      
+  </div>   
+  <div style={{marginTop:4, fontSize:11, color:"#777", fontStyle:"italic"}}>
+  {getLearningNeedHint()}
+</div>
         <div style={{marginTop:10}}>Timing</div>
         <select value={timing} onChange={e => setTiming(e.target.value)}>
           <option value="before">Before Work</option>
