@@ -522,6 +522,38 @@ function getTopicTypeHint() {
   return "Tip: Concept = explain an idea | System = use a tool or workflow | Decision = evaluate options or make a recommendation";
 }
 
+function getDeliveryApproach() {
+  const rec = getRecommendation();
+
+  if (rec.includes("Structured learning")) {
+    return [
+      "Traditional interactive course (Rise + Storyline)",
+      "Video-led course (b-roll + voiceover)",
+      "AI avatar-led course (Synthesia-style)",
+      "Microlearning series (short modules)"
+    ];
+  }
+
+  if (rec.includes("Simulation")) {
+    return [
+      "Guided simulation with feedback",
+      "Scenario-based branching",
+      "Immersive or role-play simulation"
+    ];
+  }
+
+  if (rec.includes("Job aid")) {
+    return [
+      "Checklist or quick reference",
+      "Interactive guide / deep links",
+      "Embedded in-tool support"
+    ];
+  }
+
+  return [];
+}
+
+  
 function getRecommendedDeliveryApproach() {
   if (topicType === "concept") {
     if (need === "understand") {
@@ -732,6 +764,17 @@ function getRecommendedDeliveryApproach() {
   borderRadius:8,
   background:"#f9fafb"
 }}>
+<div style={{marginTop:10}}>
+  <strong>Delivery Approach (Design Options):</strong>
+
+  <ul style={{marginTop:6, fontSize:13}}>
+    {getDeliveryApproach().map((item, index) => (
+      <li key={index}>{item}</li>
+    ))}
+  </ul>
+</div>
+``
+  
   <strong>Recommended Delivery Approach:</strong>
 
   <div style={{marginTop:6, fontSize:14}}>
