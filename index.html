@@ -465,6 +465,11 @@ function getComplexityDefinition() {
   return "";
 }
 
+function getComplexityHint() {
+  return "Tip: If learners must connect multiple concepts → Moderate. If errors would create risk or require precision → Complex.";
+}
+
+  
   
   return (
     <div>
@@ -504,6 +509,10 @@ function getComplexityDefinition() {
         </select>
 <div style={{marginTop:6, fontSize:12, color:"#555"}}>
   {getComplexityDefinition()}
+</div>
+
+<div style={{marginTop:4, fontSize:11, color:"#777", fontStyle:"italic"}}>
+  {getComplexityHint()}
 </div>
 
   
