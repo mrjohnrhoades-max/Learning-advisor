@@ -720,6 +720,49 @@ function getAlternativeDeliveryApproaches() {
   ];
 }
 
+function getDeliveryRationale() {
+  const delivery = getRecommendedDeliveryApproach();
+
+  // Concept-based learning
+  if (topicType === "concept" && need === "understand") {
+    if (complexity === "simple") {
+      return "Because this is a straightforward concept, a concise explainer format provides clarity without unnecessary depth.";
+    }
+    if (complexity === "moderate") {
+      return "Because learners must connect multiple concepts, a video-led structured format helps build understanding while maintaining engagement.";
+    }
+    return "Because this topic requires interpretation and application of concepts, a more interactive format supports deeper thinking.";
+  }
+
+  // System workflows
+  if (topicType === "system" && need === "execute") {
+    if (complexity === "complex") {
+      return "Because this task requires precision and multi-step execution, a Show / Teach / Try format enables safe practice before real-world application.";
+    }
+    return "Because the process is structured but straightforward, a guided walkthrough provides sufficient support for task completion.";
+  }
+
+  if (topicType === "system" && need === "perform") {
+    return "Because this is a task performed in the flow of work, a performance support approach prioritizes speed and accuracy over formal instruction.";
+  }
+
+  // Decision-making
+  if (topicType === "decision" && need === "decide") {
+    if (complexity === "complex") {
+      return "Because learners must evaluate trade-offs and make judgments, a scenario-based approach provides realistic decision practice.";
+    }
+    return "Because learners need exposure to applied judgment, case-based examples support evaluation without full simulation.";
+  }
+
+  if (topicType === "decision" && need === "understand") {
+    return "Because learners must first understand the framework behind decisions, a structured explanation builds the foundation for later application.";
+  }
+
+  // Default fallback
+  return "This approach aligns with the selected learning need, timing, and complexity to ensure effective skill or knowledge development.";
+}
+
+
   
   
   return (
@@ -809,6 +852,7 @@ function getAlternativeDeliveryApproaches() {
   </div>
 )}
 
+
 <div style={{
   marginTop:15,
   padding:12,
@@ -826,6 +870,16 @@ function getAlternativeDeliveryApproaches() {
     {getRecommendedDeliveryApproach().description}
   </div>
 
+  {/* ✅ NEW: rationale */}
+  <div style={{
+    marginTop:8,
+    fontSize:12,
+    color:"#333",
+    fontStyle:"italic"
+  }}>
+    {getDeliveryRationale()}
+  </div>
+
   <div style={{marginTop:8, fontSize:12, color:"#555"}}>
     <strong>Best for:</strong> {getRecommendedDeliveryApproach().bestFor}
   </div>
@@ -833,6 +887,7 @@ function getAlternativeDeliveryApproaches() {
   <div style={{marginTop:4, fontSize:12, color:"#555"}}>
     <strong>Example:</strong> {getRecommendedDeliveryApproach().example}
   </div>
+
 
 <div style={{
   marginTop:15,
