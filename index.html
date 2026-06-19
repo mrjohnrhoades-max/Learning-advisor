@@ -451,15 +451,15 @@ function getStatusStyle(status) {
 
 function getComplexityDefinition() {
   if (complexity === "simple") {
-    return "Low difficulty. Tasks are straightforward, repeatable, and involve few steps or decisions. Learners can quickly understand and apply the skill.";
+    return "Low difficulty. Tasks are straightforward and repeatable (e.g., locating a report, following a fixed process).";
   }
 
   if (complexity === "moderate") {
-    return "Moderate difficulty. Tasks involve multiple steps, some variation, or light decision-making. Learners need practice but not full simulation environments.";
+    return "Moderate difficulty. Tasks involve multiple steps or light decision-making (e.g., configuring a dashboard, running a standard analysis).";
   }
 
   if (complexity === "complex") {
-    return "High difficulty. Tasks require multi-step execution, judgment, or precision. Errors carry risk, and learners need structured practice (often simulation) to build capability.";
+    return "High difficulty. Tasks require precision, judgment, or multi-step execution (e.g., setting up a Test & Learn experiment, interpreting results, making recommendations).";
   }
 
   return "";
